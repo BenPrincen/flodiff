@@ -117,7 +117,7 @@ If you find our work helpful, please cite:
     booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
     year={2025}
 }
-}
+
 ```
 
 ## License
