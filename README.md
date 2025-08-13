@@ -111,7 +111,6 @@ python /path/to/flodiff/results/evaluate.py
 If you find our work helpful, please cite:
 
 ```bibtex
-@inproceedings{grutopia,
 @inproceedings{li2025flona,
     title={FloNa: Floor Plan Guided Embodied Visual Navigation},
     author={Li, Jiaxin and Huang, Weiqi and Wang, Zan and Liang, Wei and Di, Huijun and Liu, Feng},
