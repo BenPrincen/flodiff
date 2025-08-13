@@ -105,3 +105,28 @@ For evaluating results, run:
 ```bash
 python /path/to/flodiff/results/evaluate.py
 ```
+
+## 🔗 Citation
+
+If you find our work helpful, please cite:
+
+```bibtex
+@inproceedings{grutopia,
+@inproceedings{li2025flona,
+    title={FloNa: Floor Plan Guided Embodied Visual Navigation},
+    author={Li, Jiaxin and Huang, Weiqi and Wang, Zan and Liang, Wei and Di, Huijun and Liu, Feng},
+    booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+    year={2025}
+}
+}
+```
+
+## License
+
+This project is licensed under the [MIT licensed](LICENSE). 
+
+##  Acknowledgements
+
+- [iGibson](https://github.com/StanfordVL/iGibson): We adopt iGibson and the Gibson v2 dataset as our simulation environment and scene, leveraging their comprehensive capabilities for realistic and diverse scenario modeling.
+
+- [NoMad](https://general-navigation-models.github.io/nomad/): Partial code is borrowed from NoMad.
