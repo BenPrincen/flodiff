@@ -101,3 +101,7 @@ mv /path/to/flodiff/test_flona_gtpos.py  /path/to/flodiff/iGibson/scripts/
 cd /path/to/flodiff/iGibson
 python -m igibson.scripts.test_flona_gtpos
 ```
+For evaluating results, run:
+```bash
+python /path/to/flodiff/results/evaluate.py
+```
