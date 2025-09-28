@@ -96,7 +96,7 @@ Please refer to this [link](https://stanfordvl.github.io/iGibson/dataset.html) t
 
 c. Testing:
 ```bash
-mkdir /path/to/flodiff/iGibson/scripts
+mkdir /path/to/flodiff/iGibson/igibson/scripts
 mv /path/to/flodiff/test_flona_gtpos.py  /path/to/flodiff/iGibson/scripts/
 cd /path/to/flodiff/iGibson
 python -m igibson.scripts.test_flona_gtpos
