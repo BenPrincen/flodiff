@@ -65,14 +65,14 @@ We collected navigation episodes on [Gibson static scenes](https://stanfordvl.gi
 |--<test>
 |   |...
 ```
-You can download it from [BaiduDisk](https://pan.baidu.com/s/1eqHdBWQWKFUF-kJ5xHbK4w?pwd=zma3). Please note that the dataset is approximately 500 GB, so make sure you have sufficient disk space.
+You can download it from [BaiduDisk](https://pan.baidu.com/s/1w7d9-xeTACc_N50Exkk6nw?pwd=a2ei). Please note that the dataset is approximately 500 GB, so make sure you have sufficient disk space.
 
 b. Unpack this tar archive:
 ```bash
 cat /path/to/dataset/dataset.tar_* > /path/to/dataset/dataset.tar
 tar -xvf dataset.tar -C /path/to/flodiff/datasets
 mkdir /path/to/flodiff/datasets/trav_maps
-tar -xzvf /path/to/dataset/trav_maps.tar.gz -C /path/to/flodiff/datasets/trav_maps
+unzip trav_maps.zip -d /path/to/flodiff/datasets/trav_maps
 ```
 ## 3. Training
 To train your own model, simply run the following command:
