@@ -61,7 +61,7 @@ def train_eval_loop_flona(
     """
     # ==============================Train==============================
     latest_path = os.path.join(project_folder, f"latest.pth")
-    ema_model = EMAModel(model=model, power=0.75)
+    ema_model = EMAModel(parameters=model.parameters(), decay=0.75)
     
     for epoch in range(current_epoch, current_epoch + epochs):
         if train_model:

@@ -4,7 +4,7 @@ run_name: flona
 # =====training setup=====
 use_wandb: True # set to false if you don't want to log to wandb  1
 train: True
-batch_size: 150  #1
+batch_size: 50  #1
 epochs: 10
 gpu_ids: [0]     # 1
 num_workers: 20  #1

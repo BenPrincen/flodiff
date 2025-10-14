@@ -17,7 +17,8 @@ from torch.utils.data import DataLoader
 from torch.optim import AdamW
 from torchvision import transforms
 import torchvision.transforms.functional as TF
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt 
+import copy
 import matplotlib.gridspec as gridspec
 
 from training.Logger import Logger
@@ -232,7 +233,7 @@ def train_flona(
             wandb.log({"dist_loss": dist_loss.item()})
             wandb.log({"diffusion_loss": diffusion_loss.item()})
 
-
+            ema_model.averaged_model = copy.deepcopy(model)
             if i % print_log_freq == 0:
                 losses = _compute_losses_flona(
                             ema_model.averaged_model,
@@ -657,7 +658,7 @@ def model_output(
         ).prev_sample
 
     actions = get_action(diffusion_output, ACTION_STATS)
-    distance = model("dist_pred_net", obsgoal_cond=obsfloorplan_cond_fused)
+    distance = model("dist_pred_net", obsfloorplan_cond=obsfloorplan_cond_fused)
     # pos_ori = model("pos_ori_pred_net", obsgoal_cond=obsgoal_cond)
 
     return {

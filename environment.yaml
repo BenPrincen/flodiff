@@ -21,7 +21,7 @@ dependencies:
   - wandb==0.12.18
   - efficientnet-pytorch
   - warmup-scheduler
-  - diffusers==0.11.1
+  - diffusers==0.33.1
   - lmdb 
   - vit-pytorch
   - positional-encodings

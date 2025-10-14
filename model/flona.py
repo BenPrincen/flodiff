@@ -26,7 +26,7 @@ class flona(nn.Module):
         elif func_name == "noise_pred_net":
             output = self.noise_pred_net(sample=kwargs["sample"], timestep=kwargs["timestep"], global_cond=kwargs["global_cond"])
         elif func_name == "dist_pred_net":
-            output = self.dist_pred_net(kwargs["obsgoal_cond"])
+            output = self.dist_pred_net(kwargs["obsfloorplan_cond"])
         else:
             raise NotImplementedError
         return output
