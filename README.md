@@ -65,7 +65,7 @@ We collected navigation episodes on [Gibson static scenes](https://stanfordvl.gi
 |--<test>
 |   |...
 ```
-You can download it from [BaiduDisk](https://pan.baidu.com/s/1w7d9-xeTACc_N50Exkk6nw?pwd=a2ei). Please note that the dataset is approximately 500 GB, so make sure you have sufficient disk space.
+You can download it from [BaiduDisk](https://pan.baidu.com/s/1C6OL_SUvBddkUpXnPfIMgQ?pwd=9396). Please note that the dataset is approximately 500 GB, so make sure you have sufficient disk space.
 
 b. Unpack this tar archive:
 ```bash
