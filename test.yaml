@@ -1,6 +1,6 @@
 headless: true  # set false if running with a display
 test_single: true
-test_scene: "Andover_0"
+test_scene: "Andover_1"
 checkpoint_path: "/home/vgmachinist/projects/flodiff/checkpoints/flona.pth"
 testdataset: '/home/vgmachinist/projects/flodiff/dataset/scenes_117/test/'
 traindataset: '/home/vgmachinist/projects/flodiff/dataset/scenes_117/train/' 

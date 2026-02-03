@@ -10,4 +10,4 @@ flona.egg_info/
 dataset/
 # iGibson is a symlink to the iGibson repository
 iGibson 
-results/
+results/exp_*
