@@ -163,6 +163,61 @@ python -m igibson.scripts.test_flona_gtpos
 
 ---
 
+## 6. Qt xcb platform plugin failure (when running with a display, `headless: false`)
+
+**Requirement for iGibson GUI:** To run the iGibson GUI (with a display, `headless: false`), install **OpenCV** and **Qt** using **conda**, not pip. This ensures a single, consistent Qt stack and avoids conflicts between pip-installed opencv’s bundled Qt and the viewer. For example, in your conda env:
+
+```bash
+conda install opencv qt
+```
+
+(or add `opencv` and `qt` to your `environment.yaml` and create/update the env with `conda env update`). Then run the script with a display; do not rely on pip’s `opencv-python` (which bundles Qt) when using the GUI.
+
+**Symptom:** With `headless: false` in test.yaml, the script prints many  
+`QObject::moveToThread: Current thread (...) is not the object's thread (...)`  
+then fails with:
+
+```text
+qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in ".../cv2/qt/plugins" even though it was found.
+This application failed to start because no Qt platform plugin could be initialized.
+```
+
+**Cause:**
+
+1. **Two Qt users:** The script imports `cv2` (opencv-python) early. The pip `opencv-python` package ships a **bundled Qt 5.15** and its xcb plugin under `cv2/qt/plugins`. When the script then starts the iGibson Simulator in `gui_interactive` mode, the **viewer** also uses Qt/OpenGL. So two parts of the stack (OpenCV’s highgui and iGibson’s viewer) both touch Qt. The xcb plugin is found (under cv2) but then **fails to initialize** when the viewer runs, often due to thread or display context issues.
+
+2. **Thread affinity:** The `QObject::moveToThread` messages indicate Qt objects are being created or used from more than one thread. Qt requires the GUI and platform plugin to be created and used on the **main thread**. If OpenCV’s Qt backend is initialized first (or from a different thread) and then the viewer runs, the plugin can fail to initialize correctly.
+
+3. **Libraries are present:** On a typical Ubuntu setup, `libxcb-cursor0`, `libxcb-xinerama0`, and other xcb libs are installed; `ldd` on `libqxcb.so` in cv2’s plugins shows no missing system deps. So the failure is **runtime initialization**, not a missing .so.
+
+**Fix (recommended):** Use **opencv-python-headless** instead of **opencv-python** in the flodiff environment. The test script and iGibson code paths used here only need cv2 for non-GUI ops (resize, fillPoly, etc.), not `cv2.imshow()`. Headless OpenCV does not ship or load the Qt platform plugin, so there is no conflict with iGibson’s viewer.
+
+In `environment.yaml` (or your env), replace:
+
+```yaml
+- opencv-python==4.6.0.66
+```
+
+with:
+
+```yaml
+- opencv-python-headless==4.6.0.66
+```
+
+Then recreate the env or install the headless package (and uninstall `opencv-python` so only one is active):
+
+```bash
+conda activate flodiff
+pip uninstall opencv-python -y
+pip install opencv-python-headless==4.6.0.66
+```
+
+After that, you can keep `headless: false` in test.yaml and run with a real display; the Qt xcb error from OpenCV’s plugin should be gone.
+
+**Alternative (no display):** If you don’t need a GUI, set `headless: true` in test.yaml so the Simulator runs in headless mode and never loads the viewer or xcb.
+
+---
+
 ## Summary of modified files
 
 | Location | Change |
@@ -170,9 +225,9 @@ python -m igibson.scripts.test_flona_gtpos
 | **iGibson** (clone) | `git submodule update --init --recursive` |
 | **iGibson/igibson/render/pybind11/include/pybind11/attr.h** | Add `#include <cstdint>` |
 | **iGibson/igibson/scripts/test_flona_gtpos.py** | Paths to flodiff and test.yaml; travers map fallback; collision scalar conversion; headless from config; viewer `is not None` guards |
-| **flodiff/test.yaml** | `scene_path`; `headless: true` |
+| **flodiff/test.yaml** | `scene_path`; `headless: true/false` as needed |
 
 All of these were applied so that:
 1. iGibson builds with `pip install -e .` in the flodiff conda env (Python 3.8).  
 2. The evaluation script runs using flodiff’s **test.yaml** and dataset paths.  
-3. The script runs in headless mode without a display and without Qt xcb errors.
+3. With a display: use **opencv-python-headless** to avoid Qt xcb conflicts; with no display: set `headless: true` in test.yaml.

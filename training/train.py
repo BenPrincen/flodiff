@@ -8,7 +8,7 @@ import wandb
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
-from torch.optim import AdamW
+from torch.optim.adamw import AdamW
 from torchvision import transforms
 import torch.backends.cudnn as cudnn
 from warmup_scheduler import GradualWarmupScheduler
@@ -75,7 +75,7 @@ def main(config):
     vision_encoder = replace_bn_with_gn(vision_encoder)
     noise_pred_net = ConditionalUnet1D(
             input_dim=2,
-            global_cond_dim=config["encoding_size"],    # +6
+            global_cond_dim=config["encoding_size"],
             down_dims=config["down_dims"],
             cond_predict_scale=config["cond_predict_scale"],
         )
@@ -213,9 +213,8 @@ if __name__ == "__main__":
             settings=wandb.Settings(start_method="fork"),          
         )
         wandb.save(args.config, policy="now")  # save the config file
-        wandb.run.name = config["run_name"]
-        # update the wandb args with the training configurations
         if wandb.run:
+            wandb.run.name = config["run_name"]
             wandb.config.update(config)
 
     main(config)

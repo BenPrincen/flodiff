@@ -1,4 +1,4 @@
-headless: true  # set false if running with a display
+headless: false  # set false if running with a display
 test_single: true
 test_scene: "Andover_1"
 checkpoint_path: "/home/vgmachinist/projects/flodiff/checkpoints/flona.pth"
